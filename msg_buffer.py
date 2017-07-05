@@ -16,10 +16,14 @@ class MessageBuffer:
             return
 
         self.__parsed_messages = self.__incomming_buffer.split(self.__delim_msg)
-        if self.__incomming_buffer[-1] == self.__delim_msg:
-            self.__incomming_buffer = self.__parsed_messages[-1]
+        if self.__incomming_buffer[-1] != self.__delim_msg:
+            self.__incomming_buffer = str(self.__parsed_messages[-1])
+            self.__parsed_messages.pop()
         else:
             self.__incomming_buffer = ""
+
+        if len(self.__parsed_messages) > 0 and self.__parsed_messages[-1] == "":
+            self.__parsed_messages.pop()
 
     def append(self, received_data):
 
